@@ -1,49 +1,137 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+title>reveal.js</title>
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/league.css">
+<link rel="stylesheet" href="css/reveal.css">
+<link rel="stylesheet" href="css/theme/league.css">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+<!-- Theme used for syntax highlighting of code -->
+<link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+<!-- Printing and PDF exports -->
+<script>
+var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+</script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section><h2>Git</h2></section>
+      <section>
+        <p>Are you new to using git? Do you only know the basics of version control (commit, branch and
+           automatic merges)?  Are already a git user, but have problems with conflict resolution and
+           merging?</p>
+      </section>
+      <section>
+        <ol>
+          <li>How git works</li>
+          <li>Our exercise repo on github</li>
+          <li>The many uses of checkout</li>
+          <li>git reference syntax</li>
+          <li>diff</li>
+          <li>merging</li>
+          <li>rebasing</li>
+          <li>squashing</li>
+          <li>reset</li>
+          <li>forking</li>
+        </ol>
+      </section>
+      <section>
+        <p>The talk will include hands on exercises, so please come prepared. Sign-up for a github
+           account and bring your laptops with git pre-installed. Please install the git command line
+           tool. <a href="https://git-scm.com/downloads">Download Git</a> Your favorite IDE probably
+           includes a git plugin, but it will not be suitable for this workshop. Most IDEs don't
+           support all of the commands we use during the hands-on exercises.</p>
+      </section>
+      <section>
+        <p>Git is a distributed version control system.</p>
+        <p>Distributed = No central authority</p>
+        <p>Any repo can be cloned and hosted on a different computer.</p>
+        <p>You can even distribute git changes in unique ways. Sending patch files via email</p>
+      </section>
+      <section>
+        <p>Who is the administrator of your git repo clone?</p>
+        <p>You</p>
+      </section>
+      <section>
+        <p>You have the ability to modify anything in your git clone.</p>
+        <ul>
+          <li>You can merge changes to master without a review</li>
+          <li>Rewrite commit metadata so it looks like you are the author</li>
+          <li>Rewrite the entire commit history of the master branch</li>
+        </ul>
+        <p>That seems dangerous</p>
+        <p>However, you can only do this to your own repo. There are mechanisms in place
+           so you can't push these changes to repos on github.</p>
+      </section>
+      <section>
+        <p>Under the hood git is storage system for git objects.</p>
+        <p>branches and lightweight tags are named references. Heavyweight tags are
+           named references, but also include a second git object to identify who
+           created the tag and when.</p>
+      </section>
+        <p>There is no builtin delete for git objects</p>
+        <p>objects are only deleted after being unreferenced or compressed for x days.
+        <p>Git will compress git objects that need to be maintained but haven't been used
+           for x days</p>
+        <p>The way it works is similar to the garbage collector in your favorite modern
+           programming language.</p>
+      </section>
+      <section>
+        Time for 1st Exercise
+        Cloning Repo
+        git clone git@github.com:careyrp/git-power.git
+        each exercise has one or more branches
+        also there are two branches
+        master - is normally the default location for maintaining your project
+        gh-pages - is special branch github uses to generate html pages
+        For git-power.git master is intentionly out of date so we can do our exercises
+        gh-pages is our up to date branch.
+      </section>
+      <section>
+        checkout has many uses
+        switch branches
+        create a new branch
+        reset a single file
+      </section>
+      <section>
+        HEAD
+        HEAD^
+        HEAD^^
+        master
+        tag
+        sha you only need first 6 characters
+        linux kernel is the oldest repo with active commit history. That makes it the largest repo in regard to number of commits. linux kernel needs 8 characters to uniquely identify a commit
+        master..example01
+        master...example01
+        git merge-base example01
+      </section>
+    </div>
+  </div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.js"></script>
 
-		<script>
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
-			Reveal.initialize({
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
-			});
-		</script>
-	</body>
+  <script>
+    // More info about config & dependencies:
+    // - https://github.com/hakimel/reveal.js#configuration
+    // - https://github.com/hakimel/reveal.js#dependencies
+    Reveal.initialize({
+    dependencies: [
+    { src: 'plugin/markdown/marked.js' },
+    { src: 'plugin/markdown/markdown.js' },
+    { src: 'plugin/notes/notes.js', async: true },
+    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+    ]
+    });
+  </script>
+</body>
 </html>
