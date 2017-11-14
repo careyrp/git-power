@@ -24,95 +24,219 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <body>
   <div class="reveal">
     <div class="slides">
-      <section><h2>Git</h2></section>
+      <section><h2>Power Git</h2></section>
       <section>
+        <h2>Getting Started</h2>
+        <p>Sign-up for free account <a href="https://github.com/">https://github.com/</a></p>
+        <p>Download & install <a href="https://git-scm.com/downloads">https://git-scm.com/downloads</a></p>
+      </section>
+      <section>
+        <h2>Audience</h2>
         <p>Are you new to using git? Do you only know the basics of version control (commit, branch and
            automatic merges)?  Are already a git user, but have problems with conflict resolution and
            merging?</p>
       </section>
       <section>
-        <ol>
-          <li>How git works</li>
-          <li>Our exercise repo on github</li>
-          <li>The many uses of checkout</li>
-          <li>git reference syntax</li>
-          <li>diff</li>
-          <li>merging</li>
-          <li>rebasing</li>
-          <li>squashing</li>
-          <li>reset</li>
-          <li>forking</li>
-        </ol>
+        <h2>Agenda</h2>
+        <div style="text-align: left; float: left;">
+          <ol>
+            <li>How Git Works</li>
+            <li>Exercise Repo</li>
+            <li>Checkout</li>
+            <li>Pull, Push and Fetch</li>
+            <li>Git Reference Syntax</li>
+            <li>Diff</li>
+          </ol>
+        </div>
+        <div style="text-align: right; float: right;">
+          <ol start='6'>
+            <li>Merging</li>
+            <li>Rebasing</li>
+            <li>Squashing</li>
+            <li>Conflict Resolution</li>
+            <li>Reset</li>
+            <li>Forking</li>
+          </ol>
+        </div>
       </section>
       <section>
-        <p>The talk will include hands on exercises, so please come prepared. Sign-up for a github
-           account and bring your laptops with git pre-installed. Please install the git command line
-           tool. <a href="https://git-scm.com/downloads">Download Git</a> Your favorite IDE probably
-           includes a git plugin, but it will not be suitable for this workshop. Most IDEs don't
-           support all of the commands we use during the hands-on exercises.</p>
-      </section>
-      <section>
-        <p>Git is a distributed version control system.</p>
-        <p>Distributed = No central authority</p>
-        <p>Any repo can be cloned and hosted on a different computer.</p>
-        <p>You can even distribute git changes in unique ways. Sending patch files via email</p>
+        <h2>Git Overview</h2>
+        <ul>
+          <li>Git is a distributed version control system.</li>
+          <li>No central authority</li>
+          <li>Git repo can be cloned and hosted on a different computer.</li>
+        </ul>
       </section>
       <section>
         <p>Who is the administrator of your git repo clone?</p>
-        <p>You</p>
+        <p class="fragment">You</p>
+      </section>
+      <section>
+        <p>You create a new repo on github, and clone it to your laptop.
+           How many master branches are there?</p>
+        <ul>
+          <li class="fragment">three</li>
+          <li class="fragment">master on github</li>
+          <li class="fragment">master on laptop</li>
+          <li class="fragment">origin/master on laptop</li>
+        </ul>
       </section>
       <section>
         <p>You have the ability to modify anything in your git clone.</p>
         <ul>
-          <li>You can merge changes to master without a review</li>
-          <li>Rewrite commit metadata so it looks like you are the author</li>
-          <li>Rewrite the entire commit history of the master branch</li>
+          <li class="fragment">You can merge changes to master without a review</li>
+          <li class="fragment">Rewrite commit metadata so it looks like you are the author</li>
+          <li class="fragment">Rewrite the entire commit history of the master branch</li>
         </ul>
+      </section>
+      <section>
         <p>That seems dangerous</p>
         <p>However, you can only do this to your own repo. There are mechanisms in place
-           so you can't push these changes to repos on github.</p>
+           so you can't push these changes to repos on github. We will covering forking.</p>
       </section>
       <section>
-        <p>Under the hood git is storage system for git objects.</p>
-        <p>branches and lightweight tags are named references. Heavyweight tags are
-           named references, but also include a second git object to identify who
-           created the tag and when.</p>
-      </section>
-        <p>There is no builtin delete for git objects</p>
-        <p>objects are only deleted after being unreferenced or compressed for x days.
-        <p>Git will compress git objects that need to be maintained but haven't been used
-           for x days</p>
-        <p>The way it works is similar to the garbage collector in your favorite modern
-           programming language.</p>
+        <h2>Git Objects</h2>
+        <ul>
+          <li class="fragment">Storage system for git objects.</li>
+          <li class="fragment">Commit - object containing file patches + metadata</li>
+          <li class="fragment">Branch - name pointer to a commit</li>
+          <li class="fragment">Lightweight Tags - same as branch, but don't move</li>
+          <li class="fragment">Heavywieght Tags - tag + metadata</li>
+        </ul>
       </section>
       <section>
-        Time for 1st Exercise
-        Cloning Repo
-        git clone git@github.com:careyrp/git-power.git
-        each exercise has one or more branches
-        also there are two branches
-        master - is normally the default location for maintaining your project
-        gh-pages - is special branch github uses to generate html pages
-        For git-power.git master is intentionly out of date so we can do our exercises
-        gh-pages is our up to date branch.
+        <h2>Git Object Delete</h2>
+        <ul>
+          <li class="fragment">There is no builtin delete for git objects</li>
+          <li class="fragment">Git instead uses a garbage collector</li>
+          <li class="fragment">Git objects are only deleted after being unreferenced or compressed.</li>
+          <li class="fragment">Unreferenced objects are deleted after 30 days</li>
+          <li class="fragment">Reflog items are compressed after 90 days</li>
+        </ul>
       </section>
       <section>
-        checkout has many uses
-        switch branches
-        create a new branch
-        reset a single file
+        <h2>Force Delete</h2>
+        <pre><code class="hljs">
+          git for-each-ref --format='delete %(refname)' \
+            refs/original | git update-ref --stdin
+          git reflog expire --expire=now --all
+          git gc --prune=now
+        </code></pre>
+        <p>Note: You can't run these commands on github repo</p>
       </section>
       <section>
-        HEAD
-        HEAD^
-        HEAD^^
-        master
-        tag
-        sha you only need first 6 characters
-        linux kernel is the oldest repo with active commit history. That makes it the largest repo in regard to number of commits. linux kernel needs 8 characters to uniquely identify a commit
-        master..example01
-        master...example01
-        git merge-base example01
+        <h2>Exercise Git Repo</h2>
+        <ul>
+          <li>Cloning Repo</li>
+          <li>git clone git@github.com:careyrp/git-power.git</li>
+          <li>each exercise has one or more branches</li>
+        </ul>
+      </section>
+      <section>
+        <p>Checkout has many uses:</p>
+        <ul>
+          <li class="fragment">switch branches</li>
+          <li class="fragment"><pre><code>git checkout mybranch</code></pre></li>
+          <li class="fragment">create a new branch</li>
+          <li class="fragment"><pre><code>git checkout -b mybranch</code></pre></li>
+          <li class="fragment">reset a single file</li>
+          <li class="fragment"><pre><code>git checkout -- index.html</code></pre></li>
+        </ul>
+      </section>
+      <section>
+        <h2>Pull, Push and Fetch</h2>
+        <ul>
+          <li class="fragment">fetch - download remote changes stores in local repo</li>
+          <li class="fragment">pull - fetch + merge/rebase (default merge)</li>
+          <li class="fragment">push - push changes to remote</li>
+          <li class="fragment">upstream - push the current branch to its upstream branch</li>
+          <li class="fragment">simple - like upstream, but refuses to push if branch names don't match (default git 2.0+)</li>
+          <li class="fragment">matching - push and merge all local branches (default before git 2.0)</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Git Reference Syntax</h2>
+        <ul>
+          <li>branchname</li>
+          <li>tagname</li>
+          <li>HEAD</li>
+          <li>e377cd18e2800facb8f1027790f0683650158a59</li>
+          <li>HEAD@{2}</li>
+          <li>master@{yesterday}</li>
+          <li>HEAD@{2.months.ago}</li>
+          <li>HEAD^</li>
+          <li>HEAD^^^</li>
+          <li>HEAD~3</li>
+        </ul>
+      </section>
+      <section>
+        <h2>SHA Reference</h2>
+        <ul>
+          <li>linux kernel is the oldest repo with active commit history.</li>
+	  <li>linux kernel needs 8 characters of sha to uniquely identify a commit.</li>
+          <li>most repos only need 6 characters to identify a commit.</li>
+          <li>e377cd18e2800facb8f1027790f0683650158a59 = e377cd</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Diff</h2>
+        <ul>
+          <li>git diff master..example01</li>
+          <li>git diff $(git merge-base master example01) example01</li>
+          <li>git diff master...example01</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Merging</h2>
+        <ul>
+          <li>git checkout master</li>
+          <li>git merge example01</li>
+          <li>git push origin master</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Rebasing</h2>
+        <ul>
+          <li>git checkout example01<li>
+          <li> git rebase origin/example02</li>
+          <li> git push origin example01 --force</li>
+          <li> git push origin example01 --force-with-lease</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Squashing</h2>
+        <ul>
+          <li class="fragment">git rebase -i origin/example02</li>
+          <li class="fragment">In Editor options pick, squash, fixup</li>
+          <li class="fragment">Leave line 1 as pick</li>
+          <li class="fragment">squash combines changes and commit description into previous pick</li>
+          <li class="fragment">fixup same as squash but only combines changes + description is dropped</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Conflict Resolution</h2>
+        <ul>
+          <li><a href="http://meldmerge.org/">http://meldmerge.org/</a></li>
+          <li>git config --global merge.tool meld</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Reset</h2>
+        <ul>
+          <li>git checkout example03</li>
+          <li>git log -1</li>
+          <li>git reset --hard origin/master</li>
+          <li>git push origin example03 --force-with-lease</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Forking</h2>
+        <ul>
+          <li>Public open source repo. You have readonly access</li>
+          <li>Create your own fork at <a href="https://github.com/careyrp/git-power">https://github.com/careyrp/git-power</a></li>
+          <li>A fork is a remote repo. You have full write access</li>
+          <li>Send changes to original repo using github Pull Requests</li>
+        </ul>
       </section>
     </div>
   </div>
