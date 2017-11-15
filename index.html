@@ -24,7 +24,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <body>
   <div class="reveal">
     <div class="slides">
-      <section><h2>Power Git</h2></section>
+      <section><h2>Git Power</h2></section>
       <section>
         <h2>Getting Started</h2>
         <p>Sign-up for free account <a href="https://github.com/">https://github.com/</a></p>
@@ -32,9 +32,11 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
       </section>
       <section>
         <h2>Audience</h2>
-        <p>Are you new to using git? Do you only know the basics of version control (commit, branch and
-           automatic merges)?  Are already a git user, but have problems with conflict resolution and
-           merging?</p>
+        <ul>
+          <li>Are you new to using git?</li>
+          <li>Do you only know the basics commands (commit, branch and merge)?</li>
+          <li>Are you a git user, but have problems with conflict resolution?</li>
+        </ul>
       </section>
       <section>
         <h2>Agenda</h2>
@@ -90,9 +92,9 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
         </ul>
       </section>
       <section>
-        <p>That seems dangerous</p>
-        <p>However, you can only do this to your own repo. There are mechanisms in place
-           so you can't push these changes to repos on github. We will covering forking.</p>
+        <h2>Be Careful in Git</h2>
+        <p>You can make any changes, but only to your own repo. There are mechanisms in place
+           so you can't push these changes to repos on github. We will cover forking later.</p>
       </section>
       <section>
         <h2>Git Objects</h2>
@@ -109,9 +111,9 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
         <ul>
           <li class="fragment">There is no builtin delete for git objects</li>
           <li class="fragment">Git instead uses a garbage collector</li>
-          <li class="fragment">Git objects are only deleted after being unreferenced or compressed.</li>
+          <li class="fragment">Git objects are only deleted after being unreferenced.</li>
           <li class="fragment">Unreferenced objects are deleted after 30 days</li>
-          <li class="fragment">Reflog items are compressed after 90 days</li>
+          <li class="fragment">Reflog items are deleted after 90 days</li>
         </ul>
       </section>
       <section>
@@ -127,9 +129,9 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
       <section>
         <h2>Exercise Git Repo</h2>
         <ul>
-          <li>Cloning Repo</li>
-          <li>git clone git@github.com:careyrp/git-power.git</li>
-          <li>each exercise has one or more branches</li>
+          <li class="fragment">Cloning Repo</li>
+          <li class="fragment">git clone git@github.com:careyrp/git-power.git</li>
+          <li class="fragment">each exercise has one or more branches</li>
         </ul>
       </section>
       <section>
@@ -146,61 +148,64 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
       <section>
         <h2>Pull, Push and Fetch</h2>
         <ul>
-          <li class="fragment">fetch - download remote changes stores in local repo</li>
+          <li class="fragment">fetch - download remote changes and store in local repo</li>
           <li class="fragment">pull - fetch + merge/rebase (default merge)</li>
-          <li class="fragment">push - push changes to remote</li>
+          <li class="fragment">push - push changes to remote
+          <ul>
           <li class="fragment">upstream - push the current branch to its upstream branch</li>
           <li class="fragment">simple - like upstream, but refuses to push if branch names don't match (default git 2.0+)</li>
           <li class="fragment">matching - push and merge all local branches (default before git 2.0)</li>
+          </ul>
         </ul>
       </section>
       <section>
         <h2>Git Reference Syntax</h2>
         <ul>
-          <li>branchname</li>
-          <li>tagname</li>
-          <li>HEAD</li>
-          <li>e377cd18e2800facb8f1027790f0683650158a59</li>
-          <li>HEAD@{2}</li>
-          <li>master@{yesterday}</li>
-          <li>HEAD@{2.months.ago}</li>
-          <li>HEAD^</li>
-          <li>HEAD^^^</li>
-          <li>HEAD~3</li>
+          <li class="fragment">branchname</li>
+          <li class="fragment">tagname</li>
+          <li class="fragment">HEAD</li>
+          <li class="fragment">e377cd18e2800facb8f1027790f0683650158a59</li>
+          <li class="fragment">HEAD@{2}</li>
+          <li class="fragment">master@{yesterday}</li>
+          <li class="fragment">HEAD@{2.months.ago}</li>
+          <li class="fragment">HEAD^</li>
+          <li class="fragment">HEAD^^^</li>
+          <li class="fragment">HEAD~3</li>
         </ul>
       </section>
       <section>
         <h2>SHA Reference</h2>
         <ul>
-          <li>linux kernel is the oldest repo with active commit history.</li>
-	  <li>linux kernel needs 8 characters of sha to uniquely identify a commit.</li>
-          <li>most repos only need 6 characters to identify a commit.</li>
-          <li>e377cd18e2800facb8f1027790f0683650158a59 = e377cd</li>
+          <li class="fragment">linux kernel is the oldest repo with active commit history.</li>
+	  <li class="fragment">linux kernel needs 8 characters of sha to uniquely identify a commit.</li>
+          <li class="fragment">most repos only need 6 characters to identify a commit.</li>
+          <li class="fragment">e377cd18e2800facb8f1027790f0683650158a59
+          <li class="fragment">e377cd</li>
         </ul>
       </section>
       <section>
         <h2>Diff</h2>
         <ul>
-          <li>git diff master..example01</li>
-          <li>git diff $(git merge-base master example01) example01</li>
-          <li>git diff master...example01</li>
+          <li class="fragment">git diff master..example01</li>
+          <li class="fragment">git diff $(git merge-base master example01) example01</li>
+          <li class="fragment">git diff master...example01</li>
         </ul>
       </section>
       <section>
         <h2>Merging</h2>
         <ul>
-          <li>git checkout master</li>
-          <li>git merge example01</li>
-          <li>git push origin master</li>
+          <li class="fragment">git checkout master</li>
+          <li class="fragment">git merge example01</li>
+          <li class="fragment">git push origin master</li>
         </ul>
       </section>
       <section>
         <h2>Rebasing</h2>
         <ul>
-          <li>git checkout example01<li>
-          <li> git rebase origin/example02</li>
-          <li> git push origin example01 --force</li>
-          <li> git push origin example01 --force-with-lease</li>
+          <li class="fragment">git checkout example01</li>
+          <li class="fragment">git rebase origin/example02</li>
+          <li class="fragment">git push origin example01 --force</li>
+          <li class="fragment">git push origin example01 --force-with-lease</li>
         </ul>
       </section>
       <section>
@@ -223,19 +228,50 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
       <section>
         <h2>Reset</h2>
         <ul>
-          <li>git checkout example03</li>
-          <li>git log -1</li>
-          <li>git reset --hard origin/master</li>
-          <li>git push origin example03 --force-with-lease</li>
+          <li class="fragment">git checkout example03</li>
+          <li class="fragment">git log -1</li>
+          <li class="fragment">git reset --hard origin/master</li>
+          <li class="fragment">git push origin example03 --force-with-lease</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Soft Reset</h2>
+        <ul>
+          <li class="fragment">Use as a trick to avoid complex rebase</li>
+          <li class="fragment">git reset --soft origin/master</li>
+          <li class="fragment">Points HEAD at commit from origin/master</li>
+          <li class="fragment">All of your branch changes are unstaged</li>
+          <li class="fragment">Reverts all changes from master since you branched</li>
         </ul>
       </section>
       <section>
         <h2>Forking</h2>
         <ul>
-          <li>Public open source repo. You have readonly access</li>
-          <li>Create your own fork at <a href="https://github.com/careyrp/git-power">https://github.com/careyrp/git-power</a></li>
-          <li>A fork is a remote repo. You have full write access</li>
-          <li>Send changes to original repo using github Pull Requests</li>
+          <li class="fragment">Public open source repo. You have readonly access</li>
+          <li class="fragment">Create your own fork at <a href="https://github.com/careyrp/git-power">https://github.com/careyrp/git-power</a></li>
+          <li class="fragment">A fork is a remote repo. You have full write access</li>
+          <li class="fragment">Send changes to original repo using github Pull Requests</li>
+        </ul>
+      </section>
+      <section>
+        <p>Same question as before. With a fork and local clone of git-power repo, how many master branches can you personally read or write?</p>
+        <ul>
+          <li class="fragment">five</li>
+          <li class="fragment">master on careyrp/git-power</li>
+          <li class="fragment">master on your fork</li>
+          <li class="fragment">master in local repo</li>
+          <li class="fragment">origin/master in local repo</li>
+          <li class="fragment">upstream/master in local repo</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Fork Setup</h2>
+        <ul>
+          <li class="fragment">Create your fork</li>
+          <li class="fragment">git clone git@github.com/&lt;user&gt;/git-power.git</li>
+          <li class="fragment">git remote add upstream https://github.com/careyrp/git-power.git</li>
+          <li class="fragment">git fetch upstream</li>
+          <li class="fragment">git push origin</li>
         </ul>
       </section>
     </div>
