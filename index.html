@@ -97,13 +97,23 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
            so you can't push these changes to repos on github. We will cover forking later.</p>
       </section>
       <section>
+        <h2>Git Elements</h2>
+        <ul>
+          <li>Commit - changes are stored in a commit. File changes + metadata</li>
+          <li>Branch - named pointer to a commit</li>
+          <li>Tags - like branches but don't move</li>
+          <li>Lightweight Tags - same as a branch, a named pointer</li>
+          <li>Heavyweight Tags - creates an object to store creator + timestamp of tag</li>
+        </ul>
+      </section>
+      <section>
         <h2>Git Objects</h2>
         <ul>
-          <li class="fragment">Storage system for git objects.</li>
+          <li class="fragment">The backend of git is simple key/value store for  git objects. Everything is a git object.</li>
+          <li class="fragment">Blob - file contents</li>
+          <li class="fragment">Tree - connect multiple Blob or nested tree objects</li>
           <li class="fragment">Commit - object containing file patches + metadata</li>
-          <li class="fragment">Branch - name pointer to a commit</li>
-          <li class="fragment">Lightweight Tags - same as branch, but don't move</li>
-          <li class="fragment">Heavywieght Tags - tag + metadata</li>
+          <li class="fragment">Annotated Tag - used for heavyweight tags</li>
         </ul>
       </section>
       <section>
@@ -206,6 +216,8 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
           <li class="fragment">git rebase origin/example02</li>
           <li class="fragment">git push origin example01 --force</li>
           <li class="fragment">git push origin example01 --force-with-lease</li>
+          <li class="fragment">force with lease checks upstream branch is in known state</li>
+          <li class="fragment">matches origin/example01 in local repo</li>
         </ul>
       </section>
       <section>
